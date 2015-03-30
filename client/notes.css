@@ -1,0 +1,15 @@
+button {
+  height: 3em;
+}
+
+img {
+  max-width: 100%
+}
+
+form {
+  margin-top: 2em;
+}
+
+input[type="text"] {
+  width: 80%
+}
