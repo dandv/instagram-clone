@@ -1,0 +1,36 @@
+<head>
+    <title>Huawei demo</title>
+</head>
+
+<body>
+  <h1>Huawei demo - WORK IN PROGRESS</h1>
+
+  <p>This demo works best in Chrome, Firefox or Opera. <a href="http://caniuse.com/#search=getusermedia">Safari and IE don't support the camera API</a>, unfortunately.</p>
+  <p>The same codebase can produce an iOS app though, which has full camera support, so the above limitations for iOS aren't that relevant.</p>
+  <p>Code and README are <a href="https://github.com/dandv/instagram-clone">on GitHub</a>.</p>
+  <p>There are more features than meet the eye. Check out the README!</p>
+  
+
+
+  <h2 style="color: red">This is a rough first draft and continuously being updated</h2>
+
+  <div id="notes-input">
+    <button id="take-photo">Take a photo and share it!</button>
+    <form>
+      Or, enter a note:<br/>
+      <input type="text" placeholder="Type a text note">
+      <input type="submit" value="Save">
+    </form>
+  </div>  
+
+  {{#each notes}}
+    <div>
+      <h2>{{livestamp timestamp}}</h2>
+      {{#if photo}}
+        <img src="{{photo}}">
+      {{else}}
+        <p>{{note}}</p>
+      {{/if}}  
+    </div>
+  {{/each}}
+</body>
