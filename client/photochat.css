@@ -1,15 +1,22 @@
-button {
-  height: 3em;
-}
-
 img {
-  max-width: 100%
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
 }
 
 form {
   margin-top: 2em;
 }
 
-input[type="text"] {
-  width: 80%
+#baidu-map {
+  height: 400px;
+}
+
+.map-container {
+  width: 100%;
+  height: 500px;
+}
+
+.card {
+  margin: 1em 0;
 }

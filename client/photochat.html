@@ -1,36 +1,65 @@
 <head>
-    <title>Huawei demo</title>
+  <title>Huawei demo</title>
 </head>
 
 <body>
-  <h1>Huawei demo - WORK IN PROGRESS</h1>
 
-  <p>This demo works best in Chrome, Firefox or Opera. <a href="http://caniuse.com/#search=getusermedia">Safari and IE don't support the camera API</a>, unfortunately.</p>
-  <p>The same codebase can produce an iOS app though, which has full camera support, so the above limitations for iOS aren't that relevant.</p>
-  <p>Code and README are <a href="https://github.com/dandv/instagram-clone">on GitHub</a>.</p>
-  <p>There are more features than meet the eye. Check out the README!</p>
+  <div class="container">
+
+    {{> loginButtons}}
+
+    <h1>Huawei demo - WORK IN PROGRESS</h1>
+
+    <p>This demo works best in Chrome, Firefox or Opera. <a href="http://caniuse.com/#search=getusermedia">Safari and IE don't support the camera API</a>, unfortunately.</p>
+    <p>The same codebase can produce an iOS app though, which has full camera support, so the above limitations for iOS aren't that relevant.</p>
+    <p>Code and README are <a href="https://github.com/dandv/instagram-clone">on GitHub</a>.</p>
+    <p>There are more features than meet the eye. Check out the README!</p>
+    
   
+  
+    <h2 style="color: red">This is a rough first draft and continuously being updated</h2>
 
-
-  <h2 style="color: red">This is a rough first draft and continuously being updated</h2>
-
-  <div id="notes-input">
-    <button id="take-photo">Take a photo and share it!</button>
-    <form>
-      Or, enter a note:<br/>
-      <input type="text" placeholder="Type a text note">
-      <input type="submit" value="Save">
-    </form>
-  </div>  
-
-  {{#each notes}}
-    <div>
-      <h2>{{livestamp timestamp}}</h2>
-      {{#if photo}}
-        <img src="{{photo}}">
-      {{else}}
-        <p>{{note}}</p>
-      {{/if}}  
+    <div class="map-container">
+      {{> googleMap name="exampleMap" options=exampleMapOptions}}
     </div>
-  {{/each}}
+
+    <div id="notes-input">
+      <input class="btn btn-primary" type="button" id="take-photo" value="Take a photo and share it!">
+      
+      <form>
+        <div class="form-group">
+          <label for="Message">Or, enter a note</label>
+          <input type="text" class="form-control" id="message-input" placeholder="Type a text note">
+        </div>
+        <button type="submit" class="btn btn-info">Save</button>
+      </form>
+    </div>  
+  
+    {{#each notes}}
+
+      <div class="card" id={{_id}}>
+
+        {{#if photo}}
+          <div class="card-image">
+            <img src="{{photo}}" alt="Loading image...">
+            <h3 class="card-image-headline">Photo taken by {{user}}</h3>
+          </div>
+        <div class="card-body"></div>
+        {{else}}
+          <div class="card-body">
+            <h3>{{note}}</h3>
+          </div>
+        {{/if}}
+
+        <footer class="card-footer">
+          {{livestamp timestamp}}
+        </footer>
+
+      </div>
+
+
+    {{/each}}
+    
+  </div>
+  
 </body>

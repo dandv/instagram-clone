@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # Instagram clone in ~50 lines of code
 
 Sample Meteor app showing cross-platform photo taking. Instagram in 50 lines of JavaScript.
@@ -59,4 +65,16 @@ Why choose Meteor in the first place: [Why Meteor?](http://wiki.dandascalescu.co
 
 ## Conclusion
 
-Not bad for ~50 lines of JavaScript and ~15 lines of HTML.
+Not bad for ~50 lines of JavaScript and ~15 lines of HTML (as of the [first commit](https://github.com/dandv/instagram-clone/commit/8a9ff33353b9f657540030813be25fb6fa887118)).
+
+## TODO
+
+* better UI styling
+* show how easy it is to add accounts, but get the API keys for Weib and Wechat first, which requires a Chinese phone number apparently
+* store the navigator position with each photo
+* plot the pictures on the map
+* use Baidu Map if possible, but see https://en.wikipedia.org/wiki/Baidu_Maps#Coordinate_system
+* implement "shake to undo the last note" feature
+* implement voice commands
+* REST API to return the notes
+* Yelp integration (extra credit)

@@ -8,3 +8,12 @@ meteor-platform
 insecure
 mdg:camera
 copleykj:livestamp
+twbs:bootstrap
+fezvrasta:bootstrap-material-design
+dburles:google-maps
+accounts-ui
+accounts-weibo
+accounts-facebook
+accounts-google
+accounts-github
+leonzhang1109:accounts-wechat
