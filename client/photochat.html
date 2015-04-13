@@ -6,12 +6,31 @@
 
   <div class="container">
 
-    {{> loginButtons}}
 
-    <h1>Huawei Meteor demo - <a href="https://github.com/dandv/instagram-clone">source on GitHub</a></h1>
+
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Meteor demo</a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="http://github.com/dandv/instagram-clone">Source code</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons}}
+        </ul>
+      </div>
+    </div>
+
 
     <div class="map-container">
-      {{> googleMap name="exampleMap" options=exampleMapOptions}}
+      {{> googleMap name="photoMap" options=photoMapOptions}}
     </div>
 
     <div id="notes-input">
@@ -33,7 +52,7 @@
         {{#if photo}}
           <div class="card-image">
             <img src="{{photo}}" alt="Loading image...">
-            <h3 class="card-image-headline">Photo taken by {{user}}</h3>
+            <h3 class="card-image-headline">Photo taken by {{userName}}</h3>
           </div>
         <div class="card-body"></div>
         {{else}}
@@ -43,7 +62,7 @@
         {{/if}}
 
         <footer class="card-footer">
-          {{livestamp timestamp}}
+          {{userName}}, {{livestamp timestamp}}
         </footer>
 
       </div>
