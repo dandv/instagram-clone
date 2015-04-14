@@ -1,12 +1,6 @@
-
-
-
-
-
-
 # Instagram clone in ~50 lines of code
 
-Sample Meteor app showing cross-platform photo taking. Instagram in 50 lines of JavaScript.
+Sample Meteor app showing cross-platform photo taking. Instagram in 50 lines of JavaScript (as of the [first commit](https://github.com/dandv/instagram-clone/commit/8a9ff33353b9f657540030813be25fb6fa887118)).
 
 Uses the [mdg:camera](https://github.com/meteor/mobile-packages/tree/master/packages/mdg:camera) package.
 
@@ -24,9 +18,15 @@ http://huawei.meteor.com
 
 * Upload photo to cloud (visit the http://huawei.meteor.com instance)
 
+* Store the device position with each photo
+
+* OAuth login with Weibo, Facebook, GitHub, Twitter, Google
+
 * Reverse chronological photo sorting
 
 * The photostream is automatically synchronized across all connected clients - open http://huawei.meteor.com in two browser tabs and take a new photo - it will instantly appear in both tabs. The sort order will also be kept.
+
+* REST API at /api/notes/
 
 * Responsive (photos automatically fit the browser viewport)
 
@@ -69,12 +69,12 @@ Not bad for ~50 lines of JavaScript and ~15 lines of HTML (as of the [first comm
 
 ## TODO
 
-* better UI styling
-* show how easy it is to add accounts, but get the API keys for Weib and Wechat first, which requires a Chinese phone number apparently
-* store the navigator position with each photo
-* plot the pictures on the map
+* plot the pictures in the map markers
 * use Baidu Map if possible, but see https://en.wikipedia.org/wiki/Baidu_Maps#Coordinate_system
 * implement "shake to undo the last note" feature
 * implement voice commands
-* REST API to return the notes
+* polish REST API to return the notes
 * Yelp integration (extra credit)
+* send message via Weibo
+* offline feature
+* remove background image from PPT

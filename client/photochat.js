@@ -19,6 +19,7 @@ Template.body.helpers({
 
 function userName() {
   var user = Meteor.user();
+  if (!user) return 'Anonymous';
   return user.profile && user.profile.name || user.username || user.emails[0].address || 'Anonymous';
 }
 
@@ -112,20 +113,20 @@ Template.body.onCreated(function() {
       },
       changed: function (newDocument, oldDocument) {
         markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
-        map.instance.panTo(note.position);
+        map.instance.panTo(newDocument.position);
       },
 
-      removed: function (oldDocument) {
+      removed: function (note) {
         map.instance.panTo(note.position);
 
         // Remove the marker from the map
-        markers[oldDocument._id].setMap(null);
+        markers[note._id].setMap(null);
 
         // Clear the event listener
-        google.maps.event.clearInstanceListeners(markers[oldDocument._id]);
+        google.maps.event.clearInstanceListeners(markers[note._id]);
 
         // Remove the reference to this marker instance
-        delete markers[oldDocument._id];
+        delete markers[note._id];
       }
     });
 
