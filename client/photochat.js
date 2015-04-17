@@ -28,11 +28,11 @@ function userName() {
 Template.body.events({
   'click #take-photo': function () {
     MeteorCamera.getPicture(cameraOptions, function (error, data) {
-      Session.set("photo", data);
       if (error) {
         // e.g. camera permission denied, or unsupported browser (Safari on iOS, looking at you)
         console.log(error);
       } else {
+        // insert a note in the client's collection; Meteor will persist it on the server
         Notes.insert({
           photo: data,
           timestamp: new Date(),
@@ -47,6 +47,7 @@ Template.body.events({
   'submit form': function (event, template) {
     var noteText = template.find('#message-input').value;
     if (noteText) {
+      // this is obviously insecure, but works great for demo purposes; allow/deny rules can be specified on the server
       Notes.insert({
         note: noteText,
         timestamp: new Date(),
@@ -76,10 +77,8 @@ Template.body.helpers({
 });
 
 Template.body.onCreated(function() {
-  // We can use the `ready` callback to interact with the map API once the map is ready.
+  // When the `ready` callback is called, the map API is ready to interact with
   GoogleMaps.ready('photoMap', function(map) {
-    // Add markers to the map once it's ready
-
     // local mirror of google.maps.Marker *objects*, used to remove or move them from/on the map
     var markers = {};
 
@@ -111,22 +110,28 @@ Template.body.onCreated(function() {
 
         }
       },
+      
+      // We haven't implemented user-modifiable locations yet, but this is how we'd handle that:
       changed: function (newDocument, oldDocument) {
-        markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
-        map.instance.panTo(newDocument.position);
+        if (newDocument.position) {
+          markers[newDocument._id].setPosition(newDocument.position);
+          map.instance.panTo(newDocument.position);
+        }  
       },
 
       removed: function (note) {
-        map.instance.panTo(note.position);
+        if (note.position) {
+          map.instance.panTo(note.position);
 
-        // Remove the marker from the map
-        markers[note._id].setMap(null);
+          // Remove the marker from the map
+          markers[note._id].setMap(null);
 
-        // Clear the event listener
-        google.maps.event.clearInstanceListeners(markers[note._id]);
+          // Clear the event listener
+          google.maps.event.clearInstanceListeners(markers[note._id]);
 
-        // Remove the reference to this marker instance
-        delete markers[note._id];
+          // Remove the reference to this marker instance
+          delete markers[note._id];
+        }
       }
     });
 
@@ -135,4 +140,5 @@ Template.body.onCreated(function() {
 
 Meteor.startup(function() {
   GoogleMaps.load();
+  Geolocation.latLng();  // start getting the position so by the time a photo/note is posted, the position is available
 });
