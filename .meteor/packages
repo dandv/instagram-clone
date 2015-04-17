@@ -14,9 +14,9 @@ accounts-weibo
 accounts-facebook
 accounts-google
 accounts-github
-leonzhang1109:accounts-wechat
 accounts-password
 mdg:geolocation
 ian:accounts-ui-bootstrap-3
 fezvrasta:bootstrap-material-design
 xcv58:collection-api
+shake:shake

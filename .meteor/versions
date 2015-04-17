@@ -35,7 +35,6 @@ insecure@1.0.3
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
-leonzhang1109:accounts-wechat@0.2.6
 less@1.0.14
 livedata@1.0.13
 localstorage@1.0.3
@@ -63,6 +62,7 @@ routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
+shake:shake@0.0.1
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
