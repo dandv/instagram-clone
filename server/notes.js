@@ -6,22 +6,55 @@ Meteor.publish('notes', function () {
 });
 
 Meteor.startup(function () {
-
-  // All values listed below are default
-  collectionApi = new CollectionAPI({
-    apiPath: 'api',                    // API path prefix
-    standAlone: false,                 // Run as a stand-alone HTTP(S) server
-    allowCORS: true                   // Allow CORS (Cross-Origin Resource Sharing)
+  Restivus.addCollection(Notes, {
+    endpoints: {
+      get: {
+        action: function () {
+          var note = Notes.findOne(this.urlParams.id);
+          if (note.photo) note.photo = '/api/notes/' + note._id + '/photo';
+          return note;
+        }
+      },
+      getAll: {
+        action: function () {
+          return {
+            status: "success",
+            data: Notes.find(
+              { },
+              { sort: {timestamp: -1},
+                transform: function (note) {
+                  if (note.photo)
+                    note.photo = '/api/notes/' + note._id + '/photo';
+                  return note;
+                }
+              }
+            ).fetch()
+          };
+        }
+      }
+    }
   });
 
-  // Add the collection Notes to the API "/notes" path
-  collectionApi.addCollection(Notes, 'notes', {
-    // All values listed below are default
-    authToken: undefined,                   // Require this string to be passed in on each request.
-    authenticate: undefined, // function(token, method, requestMetadata) {return true/false}; More details can found in [Authenticate Function](#Authenticate-Function).
-    methods: ['POST','GET','PUT','DELETE']  // Allow creating, reading, updating, and deleting
+  Restivus.addRoute('notes/:id/photo', {authRequired: false}, {
+    get: function () {
+      var note = Notes.findOne(this.params.id);
+      if (note) {
+        return 'foo"bar';
+        return {
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          //body: new Buffer(note.photo.slice(0), 'base64').toString()  // var buf = new Buffer(b64string, 'base64');
+          // http://stackoverflow.com/questions/6182315/how-to-do-base64-encoding-in-node-js
+          // or https://github.com/meteor/meteor/tree/devel/packages/base64
+          body: '<img src=' + note.photo + '>'
+        };
+      }
+      return {
+        statusCode: 404,
+        body: {status: 'fail', message: 'Note not found'}
+      };
+    }
   });
 
-  // Starts the API server
-  collectionApi.start();
 });

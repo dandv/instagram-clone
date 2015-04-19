@@ -17,3 +17,8 @@ form {
 .card {
   margin: 1em 0;
 }
+
+.card-image {
+  max-width: 800px;
+  margin: 0 auto;
+}
