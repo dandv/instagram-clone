@@ -22,3 +22,8 @@ form {
   max-width: 800px;
   margin: 0 auto;
 }
+
+/* "-green" is an unfortunate choice of name - https://github.com/juliancwirko/meteor-s-alert/issues/10 */
+.s-alert-green.s-alert-effect-bouncyflip {
+  min-width: 100%;  /* workaround for lack of full-width alerts: https://github.com/juliancwirko/meteor-s-alert/issues/9 */
+}

@@ -5,7 +5,7 @@ App.info({
     author: 'Dan Dascalescu',
     email: 'ddascalescu+meteor@gmail.com',
     website: 'http://huawei.meteor.com',
-    version: '0.0.1'
+    version: '0.1.0'
 });
 
 App.icons({

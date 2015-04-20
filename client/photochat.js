@@ -141,4 +141,22 @@ Template.body.onCreated(function() {
 Meteor.startup(function() {
   GoogleMaps.load();
   Geolocation.latLng();  // start getting the position so by the time a photo/note is posted, the position is available
+
+  shake.startWatch(function removeLastUserNote() {
+    if (Meteor.user()) {
+
+      var lastNoteId = Notes.findOne({
+        userId: Meteor.userId()
+      }, {
+        sort: { timestamp: -1 },
+        fields: { _id: 1 }  // don't need any other fields, especially a large `photo`
+      })._id;
+
+      Notes.remove(lastNoteId);
+
+      sAlert.success('UNDO - your last note was removed.', {effect: 'bouncyflip', position: 'right-top', timeout: 5000});
+    } else {
+      sAlert.error('Please log in to use "Shake to undo"!', {effect: 'slide', position: 'right-top', timeout: 3000});
+    }
+  });
 });

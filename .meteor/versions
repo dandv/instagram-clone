@@ -43,6 +43,9 @@ iron:router@1.0.7
 iron:url@1.0.7
 jquery@1.11.3_2
 json@1.0.3
+juliancwirko:s-alert@2.0.0
+juliancwirko:s-alert-bouncyflip@1.0.1
+juliancwirko:s-alert-slide@1.0.1
 launch-screen@1.0.2
 less@1.0.14
 livedata@1.0.13
@@ -72,7 +75,7 @@ routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
-shake:shake@0.0.1
+shake:shake@0.1.0
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
