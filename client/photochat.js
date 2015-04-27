@@ -154,9 +154,9 @@ Meteor.startup(function() {
 
       Notes.remove(lastNoteId);
 
-      sAlert.success('UNDO - your last note was removed.', {effect: 'bouncyflip', position: 'right-top', timeout: 5000});
+      sAlert.success('UNDO - your last note was removed.', {effect: 'jelly', position: 'top', timeout: 5000});
     } else {
-      sAlert.error('Please log in to use "Shake to undo"!', {effect: 'slide', position: 'right-top', timeout: 3000});
+      sAlert.error('Please log in to use "Shake to undo"!', {effect: 'slide', position: 'top-right', timeout: 3000});
     }
   });
 });

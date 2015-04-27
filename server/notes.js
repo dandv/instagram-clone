@@ -5,7 +5,27 @@ Meteor.publish('notes', function () {
   )
 });
 
+function isAdmin(userId) {
+  return userId === 'YTBKpxPLzEoFjsGy6';  // dandv's userId
+}
+
 Meteor.startup(function () {
+
+  // server-side security
+  Notes.allow({
+    insert: function (userId, doc) {
+      // anybody can insert
+      return true;
+    },
+    update: function (userId, doc, fields, modifier) {
+      return userId && doc.userId === userId || isAdmin(userId);
+    },
+    remove: function (userId, doc) {
+      // can only remove your own notes
+      return userId && doc.userId === userId || isAdmin(userId);
+    }
+  });
+  
   // All values listed below are default
   collectionApi = new CollectionAPI({
     apiPath: 'api',                   // API path prefix
