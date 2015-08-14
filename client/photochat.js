@@ -138,6 +138,17 @@ Template.body.onCreated(function() {
   });
 });
 
+
+Template.note.events({
+  'click .delete': function (event, template) {
+    // template.data holds the data context, i.e. the current Note object - http://docs.meteor.com/#/full/template_data
+    Notes.remove(template.data._id, function (error) {
+      sAlert.error(error.toString(), {effect: 'slide', position: 'top-right', timeout: 3000});
+    });
+  }
+});
+
+
 Meteor.startup(function() {
   GoogleMaps.load();
   Geolocation.latLng();  // start getting the position so by the time a photo/note is posted, the position is available
