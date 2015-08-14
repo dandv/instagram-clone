@@ -143,7 +143,8 @@ Template.note.events({
   'click .delete': function (event, template) {
     // template.data holds the data context, i.e. the current Note object - http://docs.meteor.com/#/full/template_data
     Notes.remove(template.data._id, function (error) {
-      sAlert.error(error.toString(), {effect: 'slide', position: 'top-right', timeout: 3000});
+      if (error)
+        sAlert.error(error.toString(), {effect: 'slide', position: 'top-right', timeout: 3000});
     });
   }
 });
