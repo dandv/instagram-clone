@@ -97,3 +97,13 @@ Features interesting to a Chinese audience
 Meteor-specific features
 
 * polish the REST API to return links to the photo notes - blocked by [nimble:restivus issue](https://github.com/kahmali/meteor-restivus/issues/35)
+
+
+## License
+
+This code is dual licensed:
+
+* GPL license for non-commercial use
+* commercial license otherwise; please contact the author at ddascalescu AT gmail.com
+
+Copyright (C) 2015 Dan Dascalescu. Developed for Huawei / Futurewei Technologies Inc.
