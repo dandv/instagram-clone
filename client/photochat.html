@@ -9,7 +9,6 @@
   <div class="container">
 
 
-
     <div class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Huawei Meteor demo</a>
@@ -35,9 +34,10 @@
       {{> googleMap name="photoMap" options=photoMapOptions}}
     </div>
 
+
     <div id="notes-input">
       <input class="btn btn-primary" type="button" id="take-photo" value="Take a photo and share it!">
-      
+
       <form>
         <div class="form-group">
           <label for="Message">Or, enter a note</label>
@@ -45,14 +45,16 @@
         </div>
         <button type="submit" class="btn btn-info">Save</button>
       </form>
-    </div>  
-  
+    </div>
+
+
     {{#each notes}}
       {{> note}}
     {{/each}}
-    
+
+
   </div>
-  
+
 </body>
 
 <template name="note">

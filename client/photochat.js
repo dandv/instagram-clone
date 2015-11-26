@@ -5,8 +5,9 @@ var cameraOptions = {
   height: 600
 };
 
-// provide the value for `notes` in {{#each notes}} in the HTML
+// We only have one template, and it only has one helper.
 Template.body.helpers({
+  // Provide the value for `notes` in {{#each notes}} in the HTML template.
   notes: function () {
     return Notes.find(
       { },
@@ -14,9 +15,10 @@ Template.body.helpers({
         sort: { timestamp: -1 }
       }
     );
-  }  
+  }
 });
 
+// Return a friendly user name
 function userName() {
   var user = Meteor.user();
   if (!user) return 'Anonymous';
@@ -32,22 +34,23 @@ Template.body.events({
         // e.g. camera permission denied, or unsupported browser (Safari on iOS, looking at you)
         console.log(error);
       } else {
-        // insert a note in the client's collection; Meteor will persist it on the server
+        // Insert a note in the client's collection; Meteor will persist it on the server.
         Notes.insert({
           photo: data,
           timestamp: new Date(),
           position: Geolocation.latLng(),
           userId: Meteor.userId(),
-          userName: userName()
+          userName: userName()  // denormalize so we don't have to look up the user's name separately
         });
-      }  
+      }
     });
   },
-  
+
   'submit form': function (event, template) {
     var noteText = template.find('#message-input').value;
     if (noteText) {
-      // this is obviously insecure, but works great for demo purposes; allow/deny rules can be specified on the server
+      // Client-side collection operations are secured by allow/deny rules in ../server/notes.js.
+      // Better yet, see https://www.discovermeteor.com/blog/meteor-methods-client-side-operations/
       Notes.insert({
         note: noteText,
         timestamp: new Date(),
@@ -65,11 +68,11 @@ Template.body.events({
 
 Template.body.helpers({
   photoMapOptions: function() {
-    // Make sure the maps API has loaded
+    // Make sure the maps API has loaded.
     if (GoogleMaps.loaded()) {
       // Map initialization options
       return {
-        center: new google.maps.LatLng(31.24227, 121.49695),
+        center: new google.maps.LatLng(31.24227, 121.49695),  // Shanghai
         zoom: 8
       };
     }
@@ -77,32 +80,36 @@ Template.body.helpers({
 });
 
 Template.body.onCreated(function() {
-  // When the `ready` callback is called, the map API is ready to interact with
+  // When the `ready` callback is called, the map API is ready to interact with.
   GoogleMaps.ready('photoMap', function(map) {
     // local mirror of google.maps.Marker *objects*, used to remove or move them from/on the map
     var markers = {};
 
+    // Get notified of changes to the Notes collection: added, changed or removed note.
     Notes.find().observe({
       added: function (note) {
         console.log('New note arrived');
         if (note.position) {
-          // Create a marker for this document
+          // If the user allowed geolocation and we have a position, create a marker for this document.
           var marker = new google.maps.Marker({
             draggable: true,
             animation: google.maps.Animation.DROP,
             position: new google.maps.LatLng(note.position.lat, note.position.lng),
             map: map.instance,
-            // We store the document _id on the marker in order
-            // to update the document within the 'dragend' event below.
-            id: note._id
+            id: note._id  // store _id in marker to be able to update the Note doc in 'dragend' below
           });
 
           // This listener lets us drag markers on the map and update their corresponding document.
           google.maps.event.addListener(marker, 'dragend', function(event) {
-            Notes.update(marker.id, { $set: { 'position.lat': event.latLng.lat(), 'position.lng': event.latLng.lng() }});
+            Notes.update(marker.id, {
+              $set: {
+                'position.lat': event.latLng.lat(),
+                'position.lng': event.latLng.lng()
+              }
+            });
           });
 
-          // pan the map to the new note
+          // Pan the map to the new note.
           map.instance.panTo(note.position);
 
           // Store this marker instance within the markers object.
@@ -110,15 +117,16 @@ Template.body.onCreated(function() {
 
         }
       },
-      
-      // We haven't implemented user-modifiable locations yet, but this is how we'd handle that:
+
+      // Handle location changes, such as when the user drag and drops a marker.
       changed: function (newDocument, oldDocument) {
         if (newDocument.position) {
           markers[newDocument._id].setPosition(newDocument.position);
           map.instance.panTo(newDocument.position);
-        }  
+        }
       },
 
+      // Handle deleting a note.
       removed: function (note) {
         if (note.position) {
           map.instance.panTo(note.position);
@@ -154,6 +162,7 @@ Meteor.startup(function() {
   GoogleMaps.load();
   Geolocation.latLng();  // start getting the position so by the time a photo/note is posted, the position is available
 
+  // Shake to undo
   shake.startWatch(function removeLastUserNote() {
     if (Meteor.user()) {
 

@@ -1,3 +1,5 @@
+// Server-only code. Publish the Notes collection securely and initialize the REST API.
+
 function isAdmin(userId) {
   return userId === 'YTBKpxPLzEoFjsGy6';  // dandv's userId
 }
@@ -7,11 +9,13 @@ Meteor.startup(function () {
   Meteor.publish('notes', function () {
     return Notes.find(
       { },
-      { sort: { timestamp: -1 } }
+      {
+        sort: { timestamp: -1 }
+      }
     )
   });
 
-  // server-side security
+  // Server-side security
   Notes.allow({
     insert: function (userId, doc) {
       // anybody can insert
