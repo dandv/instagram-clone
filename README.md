@@ -8,6 +8,12 @@ Sample Meteor app showing cross-platform photo and note taking. Instagram in 50 
 https://huawei.meteor.com
 
 
+## Screenshots
+
+![Android screenshot](https://cloud.githubusercontent.com/assets/33569/11662322/d7cc9700-9d8a-11e5-9cad-0acb1dedff6b.png)
+
+[More screenshots of the Instagram Clone Android app](https://github.com/dandv/instagram-clone/issues/1).
+
 ## Features
 
 * **Cross-platform** iOS, Android (see [Google Play Store listing](play.google.com/store/apps/details?id=com.dandascalescu.huawei.demo)) and web application from a single code base.
